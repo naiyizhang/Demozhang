@@ -105,10 +105,12 @@ public class MainActivity extends AppCompatActivity {
         float hitMaxDegree = 60*0.8f;
         float hitDegree = (float) (hitMinDegree+(hitMaxDegree - hitMinDegree)*Math.random());
         float endDegree = lastCircle+index*60+hitDegree;
+        endDegree+=360;
         Log.e(TAG, "endAnimation: value = "+endDegree );
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(currentDegree, currentDegree+endDegree);
         valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.setDuration(duration);
+
+        valueAnimator.setDuration((long) (duration*endDegree/360f));
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -119,5 +121,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         valueAnimator.start();
+
     }
 }
